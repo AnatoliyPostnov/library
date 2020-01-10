@@ -1,10 +1,16 @@
 package com.postnov.library.service.impl;
 
+import com.postnov.library.dto.LibraryCardDto;
+import com.postnov.library.exceptions.IncorrectSavedClientFormatException;
+import com.postnov.library.exceptions.IncorrectSavedLibraryCardFormatException;
+import com.postnov.library.exceptions.LibraryCardAlreadyExistException;
+import com.postnov.library.model.Client;
 import com.postnov.library.model.LibraryCard;
 import com.postnov.library.model.Passport;
 import com.postnov.library.repository.LibraryCardRepository;
 import com.postnov.library.service.ClientService;
 import com.postnov.library.service.LibraryCardService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,11 +29,15 @@ public class LibraryCardServiceImpl implements LibraryCardService {
     @Autowired
     ClientService clientService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public void save(LibraryCard libraryCard) {
         if(!existenceOfTheLibraryCard(libraryCard)){
-            clientService.save(libraryCard.getClient());
             libraryCardRepository.save(libraryCard);
+        }else{
+            throw new LibraryCardAlreadyExistException();
         }
     }
 
@@ -44,16 +54,27 @@ public class LibraryCardServiceImpl implements LibraryCardService {
 
     @Override
     public Boolean existenceOfTheLibraryCard(LibraryCard libraryCard) {
+        if(libraryCard.getClient() == null){
+            throw new IncorrectSavedLibraryCardFormatException();
+        }
+        if (libraryCard.getClient().getPassport() == null){
+            throw new IncorrectSavedClientFormatException();
+        }
         return clientService.existenceOfTheClient(libraryCard.getClient());
     }
 
     @Override
-    public Optional<LibraryCard> findById(Long id) {
+    public LibraryCard findById(Long id) {
         Optional<LibraryCard> optionalLibraryCard = libraryCardRepository.findById(id);
-        if (optionalLibraryCard.isPresent() && optionalLibraryCard.orElse(null).getDeletedLibraryCard()){
-            return optionalLibraryCard;
+        if(!optionalLibraryCard.isPresent()){
+            throw new RuntimeException(
+                    "libraryCard with id: "
+                            + id
+                            + " is not exist");
+        }else if (optionalLibraryCard.orElse(null).getDeletedLibraryCard()){
+            return optionalLibraryCard.orElse(null);
         }
-        return null;
+        throw new RuntimeException("library card with id: " + id + "is deleted");
     }
 
     @Override
@@ -79,5 +100,28 @@ public class LibraryCardServiceImpl implements LibraryCardService {
                             + " is not exist");
         }
         return libraryCard;
+    }
+
+    @Override
+    public List<LibraryCardDto> convertToLibraryCardDto(List<LibraryCard> libraryCards) {
+        List<LibraryCardDto> libraryCardsDto = new ArrayList<>();
+        for(LibraryCard libraryCard : libraryCards){
+            libraryCardsDto.add(modelMapper.map(libraryCard, LibraryCardDto.class));
+        }
+        return libraryCardsDto;
+    }
+
+    @Override
+    public LibraryCard findByNumberAndSeries(String number, String series) {
+        return findByClient(clientService.findByNumberAndSeries(number, series));
+    }
+
+    @Override
+    public LibraryCard findByClient(Client client) {
+        Optional<LibraryCard> optionalLibraryCard = libraryCardRepository.findByClientId(client.getId());
+        if(optionalLibraryCard.isPresent()){
+            return libraryCardRepository.findByClientId(client.getId()).orElse(null);
+        }
+        throw new RuntimeException("Library card with client id: " + client.getId() + " is not exist");
     }
 }

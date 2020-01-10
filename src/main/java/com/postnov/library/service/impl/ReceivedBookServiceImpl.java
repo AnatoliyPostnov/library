@@ -9,6 +9,8 @@ import com.postnov.library.service.BookService;
 import com.postnov.library.service.LibraryCardService;
 import com.postnov.library.service.ReceivedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@EnableScheduling
 public class ReceivedBookServiceImpl implements ReceivedBookService {
 
     @Autowired
@@ -70,9 +73,8 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     }
 
     @Override
-    public Boolean receivedBook(Passport passport, Book book) {
+    public Boolean receivedBook(LibraryCard libraryCard, Book book) {
         if(bookService.getReceivedBook(book)){
-            LibraryCard libraryCard = libraryCardService.getLibraryCard(passport);
 
             Book receivedBook = bookService.findByBook(book);
             bookService.receivedBook(book);
@@ -91,9 +93,9 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     }
 
     @Override
-    public Boolean returnBook(Passport passport, Book book) {
+    public Boolean returnBook(LibraryCard libraryCard, Book book) {
         if(!bookService.getReceivedBook(book)) {
-            LibraryCard libraryCard = libraryCardService.getLibraryCard(passport);
+
             Book receivedBook = bookService.findByBook(book);
             ReceivedBook objectReceivedBook = getReceivedBook(
                     new ReceivedBook(receivedBook, libraryCard));
@@ -105,5 +107,9 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
         return false;
     }
 
+    @Scheduled(fixedRate = 10000)
+    public void executeTask1() {
+        System.out.println("Scheduled work");
+    }
 
 }

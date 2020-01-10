@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
@@ -19,11 +19,20 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
             "a.birthday = :birthday_author and " +
             "a.deleted_author = :deleted_author",
             nativeQuery = true)
-    Optional<Author> finedByAuthor(
+    List<Author> findByAuthor(
                      @Param("name_author") String name_author,
                      @Param("surname_author") String surname_author,
                      @Param("birthday_author") Date birthday_author,
                      @Param("deleted_author") Boolean deleted_author
+    );
+
+    @Query(value = "SELECT a.id, a.name, a.surname, a.birthday, a.deleted_author " +
+            "FROM Author as a " +
+            "WHERE a.name = :name_author and " +
+            "a.surname = :surname_author", nativeQuery = true)
+            List<Author> findAuthorsByAuthorSNameAndSurname(
+                    @Param("name_author") String name_author,
+                    @Param("surname_author") String surname_author
     );
 
 }

@@ -1,5 +1,7 @@
 package com.postnov.library.service.impl;
 
+import com.postnov.library.exceptions.ClientAlreadyExistException;
+import com.postnov.library.exceptions.IncorrectSavedClientFormatException;
 import com.postnov.library.model.Client;
 import com.postnov.library.model.Passport;
 import com.postnov.library.repository.ClientRepository;
@@ -24,9 +26,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void save(Client client) {
-        if(!existenceOfTheClient(client)){
-            passportService.save(client.getPassport());
+        if(client.getPassport() != null && !existenceOfTheClient(client)){
             clientRepository.save(client);
+        }else if (client.getPassport() == null){
+            throw new IncorrectSavedClientFormatException();
+        }else{
+            throw new ClientAlreadyExistException();
         }
     }
 
@@ -96,5 +101,13 @@ public class ClientServiceImpl implements ClientService {
             );
         }
         return client;
+    }
+
+    @Override
+    public Client findByNumberAndSeries(String number, String series) {
+        Passport passport = new Passport();
+        passport.setNumber(number);
+        passport.setSeries(series);
+        return findByPassport(passportService.findByPassport(passport));
     }
 }

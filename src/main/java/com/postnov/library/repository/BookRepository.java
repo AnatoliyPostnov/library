@@ -1,6 +1,5 @@
 package com.postnov.library.repository;
 
-import com.postnov.library.model.Author;
 import com.postnov.library.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +13,9 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    @Query(value = "SELECT * FROM Book as b " +
+    @Query(value = "SELECT b.id, b.name, b.volume, b.date_of_publishing, " +
+            "b.date_of_writing, b.is_received_book, b.rating, b.deleted_book " +
+            "FROM Book as b " +
             "WHERE b.name = :name_book and " +
             "b.volume = :volume_book and " +
             "b.date_of_publishing = :date_of_publishing_book and " +
@@ -29,5 +30,12 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                      @Param("rating_book") Integer rating_book,
                      @Param("deleted_book") Boolean deleted_book
     );
+
+    @Query(value = "SELECT b.id, b.name, b.volume, " +
+            "b.date_of_publishing, b.date_of_writing, " +
+            "b.is_received_book, b.rating, b.deleted_book " +
+            "FROM Book as b WHERE b.name = :name_book",
+            nativeQuery = true)
+    List<Book> findBooksByBookSName(@Param("name_book") String name_book);
 
 }

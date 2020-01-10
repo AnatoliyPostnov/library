@@ -24,10 +24,9 @@ public class Client implements Serializable {
     @JoinColumn(name = "passport_id")
     private Passport passport;
 
-    @OneToOne(optional = false, mappedBy = "client")
-    private LibraryCard libraryCard;
-
-    public Client(){}
+    public Client(){
+        deletedClient = true;
+    }
 
     public Client(String phone, String email, Passport passport) {
         this.phone = phone;
@@ -76,7 +75,6 @@ public class Client implements Serializable {
     public String toString() {
         return "Client - id: " + id + " phone: "
                 + phone + " email: " + email
-                + " passport:" + passport.toString()
-                + " libraryCard: " + libraryCard.toString();
+                + " passport:" + passport.toString();
     }
 }

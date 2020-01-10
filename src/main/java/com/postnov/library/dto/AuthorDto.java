@@ -4,8 +4,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class AuthorDto implements Serializable {
 
@@ -15,8 +13,6 @@ public class AuthorDto implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date birthday;
-
-    private Set<BookDto> books = new HashSet<>();
 
     public String getName() {
         return name;
@@ -42,11 +38,4 @@ public class AuthorDto implements Serializable {
         this.birthday = birthday;
     }
 
-    public Set<BookDto> getBooks() {
-        return books;
-    }
-
-    public void setBooks(Set<BookDto> books) {
-        this.books = books;
-    }
 }

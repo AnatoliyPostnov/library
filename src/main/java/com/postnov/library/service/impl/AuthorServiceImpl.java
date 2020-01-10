@@ -1,10 +1,11 @@
 package com.postnov.library.service.impl;
 
+import com.postnov.library.dto.AuthorDto;
 import com.postnov.library.model.Author;
 import com.postnov.library.model.Book;
 import com.postnov.library.repository.AuthorRepository;
 import com.postnov.library.service.AuthorService;
-import com.postnov.library.service.BookService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,56 +22,16 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorRepository authorRepository;
 
     @Autowired
-    private BookService bookService;
+    private ModelMapper modelMapper;
 
     public AuthorServiceImpl(){}
-
-    @Override
-    public void saveSetAuthors(Set<Author> authors){
-        for(Author author : authors) {
-            save(author);
-        }
-    }
-
-    @Override
-    public void save(Author author) {
-        if(!existenceOfTheAuthor(author)) {
-            bookService.saveSetBooks(author.getBooks());
-            authorRepository.save(author);
-        }
-        else {
-            Author authorTmp = authorRepository.finedByAuthor(
-                    author.getName(),
-                    author.getSurname(),
-                    author.getBirthday(),
-                    author.getDeletedAuthor()).get();
-            for(Book book : author.getBooks()) {
-                authorTmp.addBook(book);
-            }
-
-            for (Book book : authorTmp.getBooks()){
-                if(!bookService.existenceOfTheBook(book)){
-                    bookService.save(book);
-                }
-            }
-            authorRepository.save(authorTmp);
-        }
-    }
-
-    @Override
-    public Boolean existenceOfTheAuthor(Author author) {
-        return authorRepository.finedByAuthor(
-                author.getName(),
-                author.getSurname(),
-                author.getBirthday(),
-                author.getDeletedAuthor()).isPresent();
-    }
 
     @Override
     public List<Author> findAll() {
         List<Author> authors = new ArrayList<>();
         for (Author author : authorRepository.findAll()){
-            if (author.getDeletedAuthor()){
+            if (author.getDeletedAuthor() &&
+                    existenceOfTheAuthor(authors, author)){
                 authors.add(author);
             }
         }
@@ -91,28 +52,58 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(Author author) {
-        Author deletedAuthor = authorRepository.finedByAuthor(
+        List<Author> deletedAuthors = authorRepository.findByAuthor(
                 author.getName(),
                 author.getSurname(),
                 author.getBirthday(),
                 author.getDeletedAuthor()
-        ).orElse(null);
+        );
 
-        if(deletedAuthor == null){
+        if(deletedAuthors.isEmpty()){
             throw new RuntimeException(author.toString() + " is not exist");
         }
 
-        deletedAuthor.setDeletedAuthor(false);
-        Set<Book> books = deletedAuthor.getBooks();
-        for (Book book : books) {
-            book.setDeletedBook(false);
-            Set<Author> authors = book.getAuthors();
-            for (Author authorCurrentBook: authors){
-                Set<Book> currentBooks = authorCurrentBook.getBooks();
-                if (currentBooks.size() == 1) {
-                    authorCurrentBook.setDeletedAuthor(false);
-                }
+        for (Author deletedAuthor : deletedAuthors){
+            deletedAuthor.setDeletedAuthor(false);
+            Set<Book> books = deletedAuthor.getBooks();
+            for (Book book : books){
+                book.setDeletedBook(false);
             }
         }
     }
+
+    @Override
+    public List<Author> findAuthorByAuthor(Author author) {
+        return authorRepository.findByAuthor(
+                author.getName(),
+                author.getSurname(),
+                author.getBirthday(),
+                author.getDeletedAuthor());
+    }
+
+    @Override
+    public List<Author> findAuthorsByAuthorSNameAndSurname(String name, String surname) {
+        return authorRepository.findAuthorsByAuthorSNameAndSurname(
+                name,
+                surname);
+    }
+
+    @Override
+    public List<AuthorDto> convertToListDto(List<Author> authors) {
+        List<AuthorDto> authorsDto = new ArrayList<>();
+        for (Author author : authors){
+            authorsDto.add(modelMapper.map(author, AuthorDto.class));
+        }
+        return authorsDto;
+    }
+
+    private Boolean existenceOfTheAuthor(List<Author> authors, Author author){
+        for(Author authorTmp : authors){
+            if (authorTmp.equals(author)){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

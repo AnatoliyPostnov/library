@@ -38,10 +38,9 @@ public class Passport implements Serializable {
     @Column
     private Date dateSigning;
 
-    @OneToOne(mappedBy = "passport")
-    private Client client;
-
-    public Passport(){}
+    public Passport(){
+        deletedPassport = true;
+    }
 
     public Passport(String name,
                     String surname,
@@ -120,14 +119,6 @@ public class Passport implements Serializable {
         this.dateSigning = dateSigning;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public Boolean getDeletedPassport() {
         return deletedPassport;
     }
@@ -142,6 +133,7 @@ public class Passport implements Serializable {
                 + name + " surname:" + surname
                 + " birthday: " + birthday + " number: "
                 + number + " series: " + series
-                + " authorityIssuer: " + authorityIssuer;
+                + " authorityIssuer: " + authorityIssuer +
+                " dateSigning: " + dateSigning;
     }
 }

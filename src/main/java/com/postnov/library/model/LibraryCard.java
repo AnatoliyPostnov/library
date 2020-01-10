@@ -24,7 +24,9 @@ public class LibraryCard implements Serializable {
     @OneToMany(mappedBy = "libraryCard", fetch = FetchType.EAGER)
     private Set<ReceivedBook> receivedBook;
 
-    public LibraryCard(){}
+    public LibraryCard(){
+        deletedLibraryCard = true;
+    }
 
     public LibraryCard(Client client){
         this.client = client;

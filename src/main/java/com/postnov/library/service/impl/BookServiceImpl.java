@@ -1,13 +1,15 @@
 package com.postnov.library.service.impl;
 
+import com.postnov.library.dto.BookDto;
 import com.postnov.library.exceptions.BookAlreadyExistException;
+import com.postnov.library.exceptions.IncorrectSavedBookFormatException;
 import com.postnov.library.model.Author;
 import com.postnov.library.model.Book;
 import com.postnov.library.repository.BookRepository;
 import com.postnov.library.service.AuthorService;
 import com.postnov.library.service.BookService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,42 +27,19 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private AuthorService authorService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     public BookServiceImpl(){}
 
     @Override
-    public void saveSetBooks(Set<Book> books) {
-        for(Book book: books){
-            save(book);
-        }
-    }
-
-    @Override
     public void save(Book book) {
-        if(!existenceOfTheBook(book)){
-            authorService.saveSetAuthors(book.getAuthors());
+        if(!existenceOfTheBook(book) && !book.getAuthors().isEmpty()){
             bookRepository.save(book);
-        } else{
-            Book bookTmp = bookRepository.finedByBook(
-                    book.getName(),
-                    book.getVolume(),
-                    book.getDateOfPublishing(),
-                    book.getDateOfWriting(),
-                    book.getRating(),
-                    book.getDeletedBook()
-            ).get();
-            for (Author author : book.getAuthors()){
-                bookTmp.addAuthor(author);
-            }
-//            try {
-//                for (Author author : bookTmp.getAuthors()) {
-//                    if (!authorService.existenceOfTheAuthor(author)) {
-//                        authorService.save(author);
-//                    }
-//                }
-//                bookRepository.save(bookTmp);
-//            }catch (IncorrectResultSizeDataAccessException ex){
-//                throw new BookAlreadyExistException(ex.getMessage());
-//            }
+        }else if (book.getAuthors().isEmpty()){
+            throw new IncorrectSavedBookFormatException();
+        }else{
+            throw new BookAlreadyExistException();
         }
     }
 
@@ -103,10 +82,7 @@ public class BookServiceImpl implements BookService {
         findByBook(book).setDeletedBook(false);
         Set<Author> authors = deletedBook.getAuthors();
         for (Author author : authors) {
-            Set<Book> books = author.getBooks();
-            if (books.size() == 1) {
-                author.setDeletedAuthor(false);
-            }
+            author.setDeletedAuthor(false);
         }
     }
 
@@ -142,5 +118,47 @@ public class BookServiceImpl implements BookService {
     public void returnBook(Book book){
         Book returnBook = findByBook(book);
         returnBook.setReceivedBook(true);
+    }
+
+    @Override
+    public List<BookDto> convertToListBooksDto(List<Book> books) {
+        List<BookDto> booksDto = new ArrayList<>();
+        for (Book book : books){
+            booksDto.add(modelMapper.map(book, BookDto.class));
+        }
+        return booksDto;
+    }
+
+    @Override
+    public List<Book> convertToListBooks(List<BookDto> booksDto) {
+        List<Book> books = new ArrayList<>();
+        for (BookDto bookDto : booksDto){
+            books.add(modelMapper.map(bookDto, Book.class));
+        }
+        return books;
+    }
+
+    @Override
+    public List<Book> findBooksByAuthors(List<Author> authors) {
+        List<Book> books = new ArrayList<>();
+        for (Author authorTmp : authors){
+            books.addAll(authorTmp.getBooks());
+        }
+        return books;
+    }
+
+    @Override
+    public List<Book> findBooksByAuthor(Author author) {
+        return findBooksByAuthors(authorService.findAuthorByAuthor(author));
+    }
+
+    @Override
+    public List<Book> findBooksByAuthorSNameAndSurname(String name, String surname) {
+        return findBooksByAuthors(authorService.findAuthorsByAuthorSNameAndSurname(name,surname));
+    }
+
+    @Override
+    public List<Book> findBooksByBookSName(String name) {
+        return bookRepository.findBooksByBookSName(name);
     }
 }

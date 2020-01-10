@@ -57,19 +57,19 @@ public class TestReceivedBookService {
                 new Date(5,5, 2018));
     }
 
-    @Test
-    public void receivedBookTest(){
-        receivedBookService.receivedBook(passport, book);
-        assertEquals(1, receivedBookService.findAll().size());
-    }
+//    @Test
+//    public void receivedBookTest(){
+//        receivedBookService.receivedBook(passport, book);
+//        assertEquals(1, receivedBookService.findAll().size());
+//    }
 
 
-    @Test
-    public void returnBookTest(){
-        receivedBookService.receivedBook(passport, book);
-        receivedBookService.returnBook(passport, book);
-        assertEquals(0, receivedBookService.findAll().size());
-    }
+//    @Test
+//    public void returnBookTest(){
+//        receivedBookService.receivedBook(passport, book);
+//        receivedBookService.returnBook(passport, book);
+//        assertEquals(0, receivedBookService.findAll().size());
+//    }
 
     private void saveThreeLibraryCards(){
         Passport passport1 = new Passport(
@@ -152,6 +152,6 @@ public class TestReceivedBookService {
         books.add(book3);
 
         author.setBooks(books);
-        authorService.save(author);
+//        authorService.save(author);
     }
 }

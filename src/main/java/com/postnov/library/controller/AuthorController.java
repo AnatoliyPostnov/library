@@ -1,78 +1,61 @@
 package com.postnov.library.controller;
 
 import com.postnov.library.dto.AuthorDto;
-import com.postnov.library.dto.ErrorDto;
-import com.postnov.library.exceptions.BookAlreadyExistException;
 import com.postnov.library.model.Author;
 import com.postnov.library.model.Book;
 import com.postnov.library.service.AuthorService;
+import com.postnov.library.service.BookService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/author")
+@RequestMapping
 public class AuthorController {
 
     private static Logger logger = LoggerFactory.getLogger(AuthorController.class);
 
-    @Autowired
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final BookService bookService;
 
-    @GetMapping
-    public List<AuthorDto> getAuthors(){
-        List<Author> authors = authorService.findAll();
-        List<AuthorDto> authorsDto = convertToListDto(authors);
-        return authorsDto;
+    private final ModelMapper modelMapper;
+
+    public AuthorController(AuthorService authorService,
+                            BookService bookService,
+                            ModelMapper modelMapper) {
+        this.authorService = authorService;
+        this.bookService = bookService;
+        this.modelMapper = modelMapper;
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping
-    public void addAuthor(@RequestBody AuthorDto authorDto) {
+    @GetMapping(value = "/get/authors")
+    public List<AuthorDto> getAuthors(){
+        List<Author> authors = authorService.findAll();
+        listAuthorsWithBook(authors);
+        return authorService.convertToListDto(authors);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/delete/author")
+    public void deletedAuthor(@RequestBody AuthorDto authorDto){
         Author author = modelMapper.map(authorDto, Author.class);
-        List<Author> authors = new ArrayList<>();
-        authors.add(author);
-        listBooksWithAuthor(authors);
-        authorService.save(author);
+        authorService.delete(author);
+        listAuthorsWithBook(authorService.findAll());
     }
 
-    private List<AuthorDto> convertToListDto(List<Author> authors) {
-        List<AuthorDto> authorsDto = new ArrayList<>();
-        for (Author author : authors){
-            authorsDto.add(modelMapper.map(author, AuthorDto.class));
-        }
-        return authorsDto;
-    }
-
-    private Author convertToEntity(AuthorDto authorDto){
-        return modelMapper.map(authorDto, Author.class);
-    }
-
-    @ExceptionHandler(BookAlreadyExistException.class)
-    public ErrorDto BookAlreadyExistExceptionHandler(BookAlreadyExistException ex){
-        ErrorDto errorDto = new ErrorDto();
-        errorDto.setNameError(ex.getClass().getName());
-        errorDto.setMessageError(ex.getMessage());
-        return errorDto;
-    }
-
-    private void listBooksWithAuthor(List<Author> authors) {
+    private void listAuthorsWithBook(List<Author> authors) {
         logger.info("----------Listing books with authors-------------");
         for (Author author : authors) {
             logger.info(author.toString());
-            if(author.getBooks() != null){
-                for(Book book : author.getBooks()){
-                    logger.info("\t" + book.toString());
-                }
+            List<Book> books = bookService.findBooksByAuthor(author);
+            for(Book book : books){
+                logger.info("\t" + book.toString());
             }
         }
     }

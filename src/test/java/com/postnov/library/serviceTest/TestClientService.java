@@ -89,6 +89,7 @@ public class TestClientService {
         Client client1 = new Client("89533576500", "postnov-90@mail.ru", passport1);
         Client client2 = new Client("89217554804", "lomidze111@mail.ru", passport2);
         Client client3 = new Client("89644465891", "email@e,ail.ru", passport3);
+        System.out.println(client2.toString());
         clientService.save(client1);
         clientService.save(client2);
         clientService.save(client3);

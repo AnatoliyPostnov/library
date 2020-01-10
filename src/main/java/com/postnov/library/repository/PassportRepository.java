@@ -22,4 +22,5 @@ public interface PassportRepository extends JpaRepository<Passport, Long> {
                                       @Param("series") String  series,
                                       @Param("deleted_passport") Boolean deleted_passport
     );
+
 }

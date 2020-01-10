@@ -1,7 +1,7 @@
 package com.postnov.library.exceptions;
 
 public class BookAlreadyExistException extends RuntimeException {
-    public BookAlreadyExistException(String message){
+    public BookAlreadyExistException(){
         super("Book already exist");
     }
 }

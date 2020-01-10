@@ -1,5 +1,6 @@
 package com.postnov.library.service.impl;
 
+import com.postnov.library.exceptions.PassportAlreadyExistException;
 import com.postnov.library.model.Passport;
 import com.postnov.library.repository.PassportRepository;
 import com.postnov.library.service.PassportService;
@@ -21,6 +22,8 @@ public class PassportServiceImpl implements PassportService {
     public void save(Passport passport) {
         if (!existenceOfThePassport(passport)){
             passportRepository.save(passport);
+        }else {
+            throw new PassportAlreadyExistException();
         }
     }
 
