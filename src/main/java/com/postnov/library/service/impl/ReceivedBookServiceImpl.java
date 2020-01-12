@@ -1,14 +1,13 @@
 package com.postnov.library.service.impl;
 
+import com.postnov.library.dto.ReceivedBookDto;
 import com.postnov.library.model.Book;
 import com.postnov.library.model.LibraryCard;
-import com.postnov.library.model.Passport;
 import com.postnov.library.model.ReceivedBook;
 import com.postnov.library.repository.ReceivedBookRepository;
 import com.postnov.library.service.BookService;
-import com.postnov.library.service.LibraryCardService;
 import com.postnov.library.service.ReceivedBookService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,23 +16,29 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 @EnableScheduling
 public class ReceivedBookServiceImpl implements ReceivedBookService {
 
-    @Autowired
-    BookService bookService;
+    private static final Long MILLISECONDS_MONTH = 2592000000L;
 
-    @Autowired
-    ReceivedBookService receivedBookService;
+    private final BookService bookService;
 
-    @Autowired
-    LibraryCardService libraryCardService;
+    private final ReceivedBookRepository receivedBookRepository;
 
-    @Autowired
-    ReceivedBookRepository receivedBookRepository;
+    private final ModelMapper modelMapper;
+
+    private final MailSender ms;
+
+    public ReceivedBookServiceImpl(BookService bookService, ReceivedBookRepository receivedBookRepository, ModelMapper modelMapper, MailSender ms) {
+        this.bookService = bookService;
+        this.receivedBookRepository = receivedBookRepository;
+        this.modelMapper = modelMapper;
+        this.ms = ms;
+    }
 
     @Override
     public void save(ReceivedBook receivedBook) {
@@ -51,14 +56,26 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     }
 
     @Override
-    public ReceivedBook getReceivedBook(ReceivedBook inputReceivedBook){
+    public ReceivedBook getReceivedBookByReceivedBook(ReceivedBook inputReceivedBook){
         ReceivedBook receivedBook = receivedBookRepository.findByReceivedBook(
                 inputReceivedBook.getBook().getId(),
                 inputReceivedBook.getLibraryCard().getId()).orElse(null);
         if (receivedBook == null){
-            throw new RuntimeException("ReceivedBook: " + receivedBook.toString() + " is not exist");
+            throw new RuntimeException(
+                    "ReceivedBook: " + inputReceivedBook.toString() + " is not exist");
         }
         return receivedBook;
+    }
+
+    @Override
+    public ReceivedBook getReceivedBookByLibraryCardAndBook(LibraryCard libraryCard, Book book) {
+        ReceivedBook receivedBookTmp = new ReceivedBook(book, libraryCard);
+        return getReceivedBookByReceivedBook(receivedBookTmp);
+    }
+
+    @Override
+    public List<ReceivedBook> getReceivedBooksByLibraryCard(LibraryCard libraryCard) {
+        return receivedBookRepository.findReceivedBooksByLibraryCard(libraryCard.getId());
     }
 
     @Override
@@ -73,8 +90,44 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     }
 
     @Override
-    public Boolean receivedBook(LibraryCard libraryCard, Book book) {
-        if(bookService.getReceivedBook(book)){
+    public Integer returnBooksFromLibraryCard(LibraryCard libraryCard, List<Book> books) {
+        Integer count = 0;
+        for(Book book : books){
+            Optional<ReceivedBook> receivedBook = receivedBookRepository.findByReceivedBook(
+                    book.getId(),
+                    libraryCard.getId());
+            if (receivedBook.isPresent() &&
+                    receivedBook.orElse(null).getDateOfBookReturn() == null){
+                returnBook(libraryCard, book);
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public List<ReceivedBookDto> convertToListReceivedBooksDto(List<ReceivedBook> receivedBooks) {
+        List<ReceivedBookDto> receivedBooksDto = new ArrayList<>();
+        for (ReceivedBook receivedBook : receivedBooks){
+            receivedBooksDto.add(modelMapper.map(receivedBook, ReceivedBookDto.class));
+        }
+        return receivedBooksDto;
+    }
+
+    @Override
+    public List<ReceivedBook> getHistoryReceivedBooksByLibraryCard(LibraryCard libraryCard) {
+        return receivedBookRepository.findHistoryReceivedBooksByLibraryCard(libraryCard.getId());
+    }
+
+    @Override
+    public List<ReceivedBook> getAllReceivedBook() {
+        return receivedBookRepository.findAllReceivedBook();
+    }
+
+
+    @Override
+    public void receivedBook(LibraryCard libraryCard, Book book) {
+        if(bookService.getIsReceivedBook(book)){
 
             Book receivedBook = bookService.findByBook(book);
             bookService.receivedBook(book);
@@ -87,29 +140,65 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
 
             receivedBookRepository.save(objectReceivedBook);
 
-            return true;
         }
-        return false;
     }
 
     @Override
-    public Boolean returnBook(LibraryCard libraryCard, Book book) {
-        if(!bookService.getReceivedBook(book)) {
+    public void returnBook(LibraryCard libraryCard, Book book) {
+        if(!bookService.getIsReceivedBook(book)) {
 
             Book receivedBook = bookService.findByBook(book);
-            ReceivedBook objectReceivedBook = getReceivedBook(
+            ReceivedBook objectReceivedBook = getReceivedBookByReceivedBook(
                     new ReceivedBook(receivedBook, libraryCard));
 
             bookService.returnBook(book);
             objectReceivedBook.setDateOfBookReturn(new Date());
-            return true;
         }
-        return false;
     }
 
     @Scheduled(fixedRate = 10000)
     public void executeTask1() {
-        System.out.println("Scheduled work");
-    }
+        List<LibraryCard> libraryCards = new ArrayList<>();
 
+        for(ReceivedBook receivedBook : getAllReceivedBook()){
+            if(!libraryCards.contains(receivedBook.getLibraryCard())){
+                libraryCards.add(receivedBook.getLibraryCard());
+            }
+        }
+
+        for(LibraryCard libraryCard : libraryCards){
+            List<ReceivedBook> receivedBooks = new ArrayList<>();
+//            List<ReceivedBook> receivedBooks = getReceivedBooksByLibraryCard(libraryCard);
+            for (ReceivedBook receivedBook : getReceivedBooksByLibraryCard(libraryCard)){
+                Date date = new Date();
+                if (date.getTime() - receivedBook.getDateOfBookReceiving().getTime() >=
+                        MILLISECONDS_MONTH){
+                    receivedBooks.add(receivedBook);
+                }
+            }
+
+            if (receivedBooks.isEmpty()){
+                continue;
+            }
+
+            StringBuilder message = new StringBuilder("Уважаемый " +
+                    libraryCard.getClient().getPassport().getName() + " " +
+                    libraryCard.getClient().getPassport().getSurname() + " " +
+                    "Вы должны библиотеке следующие книжки: ");
+            for(ReceivedBook receivedBook : receivedBooks){
+                message
+                        .append(receivedBook.toString())
+                        .append(" ")
+                        .append("Дата взятия книжки: ")
+                        .append(receivedBook.getDateOfBookReceiving())
+                        .append(". Большая просьба, верните книжки");
+            }
+
+            ms.send(
+                    libraryCard.getClient().getEmail(),
+                    "From library",
+                    message.toString());
+
+        }
+    }
 }

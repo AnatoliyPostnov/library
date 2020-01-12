@@ -76,4 +76,9 @@ public class ReceivedBook implements Serializable {
     public void setLibraryCard(LibraryCard libraryCard) {
         this.libraryCard = libraryCard;
     }
+
+    @Override
+    public String toString() {
+        return book.toString();
+    }
 }

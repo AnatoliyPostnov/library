@@ -11,7 +11,6 @@ import com.postnov.library.repository.LibraryCardRepository;
 import com.postnov.library.service.ClientService;
 import com.postnov.library.service.LibraryCardService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,14 +22,17 @@ import java.util.Optional;
 @Transactional
 public class LibraryCardServiceImpl implements LibraryCardService {
 
-    @Autowired
-    LibraryCardRepository libraryCardRepository;
+    private final LibraryCardRepository libraryCardRepository;
 
-    @Autowired
-    ClientService clientService;
+    private final ClientService clientService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    public LibraryCardServiceImpl(LibraryCardRepository libraryCardRepository, ClientService clientService, ModelMapper modelMapper) {
+        this.libraryCardRepository = libraryCardRepository;
+        this.clientService = clientService;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public void save(LibraryCard libraryCard) {
@@ -112,8 +114,8 @@ public class LibraryCardServiceImpl implements LibraryCardService {
     }
 
     @Override
-    public LibraryCard findByNumberAndSeries(String number, String series) {
-        return findByClient(clientService.findByNumberAndSeries(number, series));
+    public LibraryCard findByPassportSNumberAndSeries(String number, String series) {
+        return findByClient(clientService.findByPassportSNumberAndSeries(number, series));
     }
 
     @Override

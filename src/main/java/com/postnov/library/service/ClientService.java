@@ -22,5 +22,5 @@ public interface ClientService {
 
     Client findByPassport(Passport passport);
 
-    Client findByNumberAndSeries(String number, String series);
+    Client findByPassportSNumberAndSeries(String number, String series);
 }

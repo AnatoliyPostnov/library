@@ -4,7 +4,6 @@ import com.postnov.library.exceptions.PassportAlreadyExistException;
 import com.postnov.library.model.Passport;
 import com.postnov.library.repository.PassportRepository;
 import com.postnov.library.service.PassportService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +14,11 @@ import java.util.List;
 @Transactional
 public class PassportServiceImpl implements PassportService {
 
-    @Autowired
-    private PassportRepository passportRepository;
+    private final PassportRepository passportRepository;
+
+    public PassportServiceImpl(PassportRepository passportRepository) {
+        this.passportRepository = passportRepository;
+    }
 
     @Override
     public void save(Passport passport) {

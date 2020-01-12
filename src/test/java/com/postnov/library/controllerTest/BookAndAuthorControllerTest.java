@@ -143,15 +143,27 @@ public class BookAndAuthorControllerTest {
     public void deletedAuthorTest() throws Exception {
         String uri = "/delete/author";
         AuthorDto author = new AuthorDto();
-        author.setName("Неизвестный");
-        author.setSurname("Автор");
-        author.setBirthday(new Date(1999 - 1900, 6, 17));
+        author.setName("Юлиана");
+        author.setSurname("Кузьмина");
+        author.setBirthday(new Date(1964 - 1900, 6, 15));
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(mapToJson(author))).andReturn();
         int status = mvcResult.getResponse().getStatus();
 
         assertEquals(204, status);
+    }
+
+    @Test
+    public void getReceivedBooksTest() throws Exception {
+        String uri = "/get/received/books";
+        List<Book> book = bookService.findBooksByBookSName("Spring 5 для профессионалов");
+        Iterator<Book> iter = book.iterator();
+        iter.next().setReceivedBook(false);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+
+        assertBooks(200, mvcResult);
     }
 
     private void assertAuthors(int statusTest, MvcResult mvcResult) throws IOException {

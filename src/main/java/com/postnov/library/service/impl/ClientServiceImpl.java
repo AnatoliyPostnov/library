@@ -18,11 +18,14 @@ import java.util.List;
 @Transactional
 public class ClientServiceImpl implements ClientService {
 
-    @Autowired
-    ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
-    @Autowired
-    PassportService passportService;
+    private final PassportService passportService;
+
+    public ClientServiceImpl(ClientRepository clientRepository, PassportService passportService) {
+        this.clientRepository = clientRepository;
+        this.passportService = passportService;
+    }
 
     @Override
     public void save(Client client) {
@@ -104,7 +107,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client findByNumberAndSeries(String number, String series) {
+    public Client findByPassportSNumberAndSeries(String number, String series) {
         Passport passport = new Passport();
         passport.setNumber(number);
         passport.setSeries(series);

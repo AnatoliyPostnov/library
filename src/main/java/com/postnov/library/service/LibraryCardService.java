@@ -23,7 +23,7 @@ public interface LibraryCardService {
 
     List<LibraryCardDto> convertToLibraryCardDto(List<LibraryCard> libraryCards);
 
-    LibraryCard findByNumberAndSeries(String number, String series);
+    LibraryCard findByPassportSNumberAndSeries(String number, String series);
 
     LibraryCard findByClient(Client clint);
 }

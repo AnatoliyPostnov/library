@@ -21,16 +21,17 @@ import java.util.Set;
 @Transactional
 public class BookServiceImpl implements BookService {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-    @Autowired
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public BookServiceImpl(){}
+    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService, ModelMapper modelMapper){
+        this.bookRepository = bookRepository;
+        this.authorService = authorService;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public void save(Book book) {
@@ -103,9 +104,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Boolean getReceivedBook(Book book){
+    public Boolean getIsReceivedBook(Book book){
         Book receivedBook = findByBook(book);
         return receivedBook.getReceivedBook();
+    }
+
+    @Override
+    public List<Book> getIsReceivedBooks() {
+        List<Book> allBooks = this.findAll();
+        List<Book> receivedBooks = new ArrayList<>();
+        for (Book book : allBooks){
+            if (!this.getIsReceivedBook(book)){
+                receivedBooks.add(book);
+            }
+        }
+        return receivedBooks;
     }
 
     @Override

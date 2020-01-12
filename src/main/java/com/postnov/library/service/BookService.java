@@ -23,7 +23,9 @@ public interface BookService {
 
     void returnBook(Book book);
 
-    Boolean getReceivedBook(Book receivedBook);
+    Boolean getIsReceivedBook(Book receivedBook);
+
+    List<Book> getIsReceivedBooks();
 
     void receivedBook(Book book);
 

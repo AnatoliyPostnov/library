@@ -18,13 +18,14 @@ import java.util.Set;
 @Transactional
 public class AuthorServiceImpl implements AuthorService {
 
-    @Autowired
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public AuthorServiceImpl(){}
+    public AuthorServiceImpl(AuthorRepository authorRepository, ModelMapper modelMapper){
+        this.authorRepository = authorRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<Author> findAll() {
