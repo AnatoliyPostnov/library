@@ -24,11 +24,11 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "b.deleted_book = :deleted_book",
             nativeQuery = true)
     Optional<Book> finedByBook(@Param("name_book") String name_book,
-                     @Param("volume_book") Integer volume_book,
-                     @Param("date_of_publishing_book") Date date_of_publishing_book,
-                     @Param("date_of_writing_book") Date date_of_writing_book,
-                     @Param("rating_book") Integer rating_book,
-                     @Param("deleted_book") Boolean deleted_book
+                               @Param("volume_book") Integer volume_book,
+                               @Param("date_of_publishing_book") Date date_of_publishing_book,
+                               @Param("date_of_writing_book") Date date_of_writing_book,
+                               @Param("rating_book") Integer rating_book,
+                               @Param("deleted_book") Boolean deleted_book
     );
 
     @Query(value = "SELECT b.id, b.name, b.volume, " +

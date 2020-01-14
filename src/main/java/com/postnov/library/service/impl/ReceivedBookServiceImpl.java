@@ -42,7 +42,7 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
 
     @Override
     public void save(ReceivedBook receivedBook) {
-        if(!existenceOfTheReceivedBook(receivedBook)){
+        if (!existenceOfTheReceivedBook(receivedBook)) {
             receivedBookRepository.save(receivedBook);
         }
     }
@@ -56,11 +56,11 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     }
 
     @Override
-    public ReceivedBook getReceivedBookByReceivedBook(ReceivedBook inputReceivedBook){
+    public ReceivedBook getReceivedBookByReceivedBook(ReceivedBook inputReceivedBook) {
         ReceivedBook receivedBook = receivedBookRepository.findByReceivedBook(
                 inputReceivedBook.getBook().getId(),
                 inputReceivedBook.getLibraryCard().getId()).orElse(null);
-        if (receivedBook == null){
+        if (receivedBook == null) {
             throw new RuntimeException(
                     "ReceivedBook: " + inputReceivedBook.toString() + " is not exist");
         }
@@ -81,8 +81,8 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     @Override
     public List<ReceivedBook> findAll() {
         List<ReceivedBook> receivedBooks = new ArrayList<>();
-        for(ReceivedBook receivedBook : receivedBookRepository.findAll()){
-            if(receivedBook.getDateOfBookReturn() == null){
+        for (ReceivedBook receivedBook : receivedBookRepository.findAll()) {
+            if (receivedBook.getDateOfBookReturn() == null) {
                 receivedBooks.add(receivedBook);
             }
         }
@@ -92,12 +92,12 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     @Override
     public Integer returnBooksFromLibraryCard(LibraryCard libraryCard, List<Book> books) {
         Integer count = 0;
-        for(Book book : books){
+        for (Book book : books) {
             Optional<ReceivedBook> receivedBook = receivedBookRepository.findByReceivedBook(
                     book.getId(),
                     libraryCard.getId());
             if (receivedBook.isPresent() &&
-                    receivedBook.orElse(null).getDateOfBookReturn() == null){
+                    receivedBook.orElse(null).getDateOfBookReturn() == null) {
                 returnBook(libraryCard, book);
                 ++count;
             }
@@ -108,7 +108,7 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     @Override
     public List<ReceivedBookDto> convertToListReceivedBooksDto(List<ReceivedBook> receivedBooks) {
         List<ReceivedBookDto> receivedBooksDto = new ArrayList<>();
-        for (ReceivedBook receivedBook : receivedBooks){
+        for (ReceivedBook receivedBook : receivedBooks) {
             receivedBooksDto.add(modelMapper.map(receivedBook, ReceivedBookDto.class));
         }
         return receivedBooksDto;
@@ -127,7 +127,7 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
 
     @Override
     public void receivedBook(LibraryCard libraryCard, Book book) {
-        if(bookService.getIsReceivedBook(book)){
+        if (bookService.getIsReceivedBook(book)) {
 
             Book receivedBook = bookService.findByBook(book);
             bookService.receivedBook(book);
@@ -145,7 +145,7 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
 
     @Override
     public void returnBook(LibraryCard libraryCard, Book book) {
-        if(!bookService.getIsReceivedBook(book)) {
+        if (!bookService.getIsReceivedBook(book)) {
 
             Book receivedBook = bookService.findByBook(book);
             ReceivedBook objectReceivedBook = getReceivedBookByReceivedBook(
@@ -157,27 +157,28 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
     }
 
     @Scheduled(fixedRate = 10000)
-    public void executeTask1() {
+    public void executeTask() {
         List<LibraryCard> libraryCards = new ArrayList<>();
 
-        for(ReceivedBook receivedBook : getAllReceivedBook()){
-            if(!libraryCards.contains(receivedBook.getLibraryCard())){
+        for (ReceivedBook receivedBook : getAllReceivedBook()) {
+            if (!libraryCards.contains(receivedBook.getLibraryCard())) {
                 libraryCards.add(receivedBook.getLibraryCard());
             }
         }
 
-        for(LibraryCard libraryCard : libraryCards){
+        for (LibraryCard libraryCard : libraryCards) {
             List<ReceivedBook> receivedBooks = new ArrayList<>();
+//            Строчка для тестирования
 //            List<ReceivedBook> receivedBooks = getReceivedBooksByLibraryCard(libraryCard);
-            for (ReceivedBook receivedBook : getReceivedBooksByLibraryCard(libraryCard)){
+            for (ReceivedBook receivedBook : getReceivedBooksByLibraryCard(libraryCard)) {
                 Date date = new Date();
                 if (date.getTime() - receivedBook.getDateOfBookReceiving().getTime() >=
-                        MILLISECONDS_MONTH){
+                        MILLISECONDS_MONTH) {
                     receivedBooks.add(receivedBook);
                 }
             }
 
-            if (receivedBooks.isEmpty()){
+            if (receivedBooks.isEmpty()) {
                 continue;
             }
 
@@ -185,7 +186,7 @@ public class ReceivedBookServiceImpl implements ReceivedBookService {
                     libraryCard.getClient().getPassport().getName() + " " +
                     libraryCard.getClient().getPassport().getSurname() + " " +
                     "Вы должны библиотеке следующие книжки: ");
-            for(ReceivedBook receivedBook : receivedBooks){
+            for (ReceivedBook receivedBook : receivedBooks) {
                 message
                         .append(receivedBook.toString())
                         .append(" ")

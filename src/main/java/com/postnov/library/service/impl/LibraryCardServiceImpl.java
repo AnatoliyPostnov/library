@@ -36,16 +36,16 @@ public class LibraryCardServiceImpl implements LibraryCardService {
 
     @Override
     public void save(LibraryCard libraryCard) {
-        if(!existenceOfTheLibraryCard(libraryCard)){
+        if (!existenceOfTheLibraryCard(libraryCard)) {
             libraryCardRepository.save(libraryCard);
-        }else{
+        } else {
             throw new LibraryCardAlreadyExistException();
         }
     }
 
     @Override
     public void delete(LibraryCard libraryCard) {
-        if (clientService.existenceOfTheClient(libraryCard.getClient())){
+        if (clientService.existenceOfTheClient(libraryCard.getClient())) {
             Optional<LibraryCard> deletedLibraryCard = libraryCardRepository.findByClientId(
                     clientService.findByClient(libraryCard.getClient()).getId()
             );
@@ -56,10 +56,10 @@ public class LibraryCardServiceImpl implements LibraryCardService {
 
     @Override
     public Boolean existenceOfTheLibraryCard(LibraryCard libraryCard) {
-        if(libraryCard.getClient() == null){
+        if (libraryCard.getClient() == null) {
             throw new IncorrectSavedLibraryCardFormatException();
         }
-        if (libraryCard.getClient().getPassport() == null){
+        if (libraryCard.getClient().getPassport() == null) {
             throw new IncorrectSavedClientFormatException();
         }
         return clientService.existenceOfTheClient(libraryCard.getClient());
@@ -68,12 +68,12 @@ public class LibraryCardServiceImpl implements LibraryCardService {
     @Override
     public LibraryCard findById(Long id) {
         Optional<LibraryCard> optionalLibraryCard = libraryCardRepository.findById(id);
-        if(!optionalLibraryCard.isPresent()){
+        if (!optionalLibraryCard.isPresent()) {
             throw new RuntimeException(
                     "libraryCard with id: "
                             + id
                             + " is not exist");
-        }else if (optionalLibraryCard.orElse(null).getDeletedLibraryCard()){
+        } else if (optionalLibraryCard.orElse(null).getDeletedLibraryCard()) {
             return optionalLibraryCard.orElse(null);
         }
         throw new RuntimeException("library card with id: " + id + "is deleted");
@@ -82,8 +82,8 @@ public class LibraryCardServiceImpl implements LibraryCardService {
     @Override
     public List<LibraryCard> findAll() {
         List<LibraryCard> libraryCards = new ArrayList<>();
-        for(LibraryCard libraryCard : libraryCardRepository.findAll()){
-            if (libraryCard.getDeletedLibraryCard()){
+        for (LibraryCard libraryCard : libraryCardRepository.findAll()) {
+            if (libraryCard.getDeletedLibraryCard()) {
                 libraryCards.add(libraryCard);
             }
         }
@@ -91,11 +91,11 @@ public class LibraryCardServiceImpl implements LibraryCardService {
     }
 
     @Override
-    public LibraryCard getLibraryCard(Passport passport){
+    public LibraryCard getLibraryCard(Passport passport) {
         LibraryCard libraryCard = libraryCardRepository
                 .findByClientId(
                         clientService.findByPassport(passport).getId()).orElse(null);
-        if (libraryCard == null){
+        if (libraryCard == null) {
             throw new RuntimeException(
                     "libraryCard for client with passport: "
                             + passport.toString()
@@ -107,7 +107,7 @@ public class LibraryCardServiceImpl implements LibraryCardService {
     @Override
     public List<LibraryCardDto> convertToLibraryCardDto(List<LibraryCard> libraryCards) {
         List<LibraryCardDto> libraryCardsDto = new ArrayList<>();
-        for(LibraryCard libraryCard : libraryCards){
+        for (LibraryCard libraryCard : libraryCards) {
             libraryCardsDto.add(modelMapper.map(libraryCard, LibraryCardDto.class));
         }
         return libraryCardsDto;
@@ -121,7 +121,7 @@ public class LibraryCardServiceImpl implements LibraryCardService {
     @Override
     public LibraryCard findByClient(Client client) {
         Optional<LibraryCard> optionalLibraryCard = libraryCardRepository.findByClientId(client.getId());
-        if(optionalLibraryCard.isPresent()){
+        if (optionalLibraryCard.isPresent()) {
             return libraryCardRepository.findByClientId(client.getId()).orElse(null);
         }
         throw new RuntimeException("Library card with client id: " + client.getId() + " is not exist");

@@ -18,8 +18,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
             "cl.passport_id = :passport_id_client",
             nativeQuery = true)
     Optional<Client> findByClient(@Param("phone_client") String phone_client,
-                               @Param("email_client") String email_client,
-                               @Param("passport_id_client") Long passport_id_client
+                                  @Param("email_client") String email_client,
+                                  @Param("passport_id_client") Long passport_id_client
     );
 
     @Query(value = "SELECT * FROM Client as cl WHERE cl.passport_id = :passport_id_client",

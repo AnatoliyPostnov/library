@@ -1,14 +1,8 @@
 package com.postnov.library.controllerTest;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postnov.library.applicationLibrary;
 import com.postnov.library.dto.LibraryCardDto;
-import com.postnov.library.model.Client;
 import com.postnov.library.model.LibraryCard;
-import com.postnov.library.model.Passport;
 import com.postnov.library.service.LibraryCardService;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +21,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static com.postnov.library.controllerTest.TestSData.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = applicationLibrary.class)
@@ -49,13 +42,13 @@ public class LibraryCardControllerTest {
     @Before
     public void init() throws Exception {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        addLibraryCardsInDbFromCreateFunc("/add/libraryCard", "createLibraryCard1");
-        addLibraryCardsInDbFromCreateFunc("/add/libraryCard", "createLibraryCard2");
-        addLibraryCardsInDbFromCreateFunc("/add/libraryCard", "createLibraryCard3");
+        addLibraryCardsInDbFromCreateFunc("createLibraryCard1");
+        addLibraryCardsInDbFromCreateFunc("createLibraryCard2");
+        addLibraryCardsInDbFromCreateFunc("createLibraryCard3");
     }
 
     @Test
-    public void addLibraryCard(){
+    public void addLibraryCard() {
         List<LibraryCard> libraryCards = libraryCardService.findAll();
 
         Assertions.assertEquals(3, libraryCards.size());
@@ -67,7 +60,7 @@ public class LibraryCardControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_UTF8)).andReturn();
 
-        assertLibraryCards(200, mvcResult);
+        assertLibraryCards(mvcResult);
     }
 
     @Test
@@ -76,21 +69,16 @@ public class LibraryCardControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_UTF8)).andReturn();
 
-        assertLibraryCards(200, mvcResult);
+        assertLibraryCards(mvcResult);
     }
 
-    private void assertLibraryCards(int statusTest, MvcResult mvcResult) throws IOException {
+    private void assertLibraryCards(MvcResult mvcResult) throws IOException {
 
-        int status = mvcResult.getResponse().getStatus();
+        assertStatus(mvcResult);
 
-        assertEquals(statusTest, status);
+        String[] contents = countContents(mvcResult);
 
-        String content = mvcResult.getResponse().getContentAsString();
-        content = content.substring(1, content.length() - 1);
-
-        String[] contents = content.split("]},");
-
-        for (int i = 0; i < contents.length - 1; ++i){
+        for (int i = 0; i < contents.length - 1; ++i) {
             contents[i] += "]}";
         }
 
@@ -100,105 +88,38 @@ public class LibraryCardControllerTest {
         libraryCardsDtoTest.add(createLibraryCard3());
 
         List<LibraryCard> libraryCardsTest = new ArrayList<>();
-        for (LibraryCardDto libraryCardDto : libraryCardsDtoTest){
+        for (LibraryCardDto libraryCardDto : libraryCardsDtoTest) {
             libraryCardsTest.add(modelMapper.map(libraryCardDto, LibraryCard.class));
         }
 
         for (int i = 0; i < contents.length - 1; ++i) {
             LibraryCardDto libraryCardDto = mapFromJson(contents[i], LibraryCardDto.class);
             LibraryCard libraryCard = modelMapper.map(libraryCardDto, LibraryCard.class);
-            assert(libraryCardsTest.contains(libraryCard));
+            assert (libraryCardsTest.contains(libraryCard));
         }
     }
 
-    private String mapToJson(Object obj) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(obj);
-    }
-
-    private <T> T mapFromJson(String json, Class<T> clazz)
-            throws JsonParseException, JsonMappingException, IOException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(json, clazz);
-    }
-
-    private void addLibraryCardsInDbFromCreateFunc(String uri, String funcName) throws Exception {
+    private void addLibraryCardsInDbFromCreateFunc(String funcName) throws Exception {
         switch (funcName) {
             case "createLibraryCard1":
-                addBooksInDb(uri, createLibraryCard1());
+                addBooksInDb(createLibraryCard1());
                 break;
             case "createLibraryCard2":
-                addBooksInDb(uri, createLibraryCard2());
+                addBooksInDb(createLibraryCard2());
                 break;
             case "createLibraryCard3":
-                addBooksInDb(uri, createLibraryCard3());
+                addBooksInDb(createLibraryCard3());
                 break;
             default:
                 throw new RuntimeException("Func: " + funcName + " is not exist");
         }
     }
 
-    private void addBooksInDb(String uri, LibraryCardDto libraryCardDto) throws Exception {
+    private void addBooksInDb(LibraryCardDto libraryCardDto) throws Exception {
 
         String libraryCardJson = mapToJson(libraryCardDto);
 
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        mvc.perform(MockMvcRequestBuilders.post("/add/libraryCard")
                 .contentType(MediaType.APPLICATION_JSON_VALUE).content(libraryCardJson)).andReturn();
-    }
-
-
-    public LibraryCardDto createLibraryCard1(){
-        Passport passport = new Passport();
-        passport.setName("Петя");
-        passport.setSurname("Бубликов");
-        passport.setNumber("4567");
-        passport.setSeries("1553445");
-        passport.setBirthday(new Date(1964 - 1900, 6, 15));
-        passport.setDateSigning(new Date(1990 - 1900, 5, 5));
-        passport.setAuthorityIssuer("Piter");
-        Client client = new Client();
-        client.setEmail("postnov-90@mail.ru");
-        client.setPhone("89533576500");
-        client.setPassport(passport);
-        LibraryCard libraryCard = new LibraryCard();
-        libraryCard.setClient(client);
-        return modelMapper.map(libraryCard, LibraryCardDto.class);
-    }
-
-    public LibraryCardDto createLibraryCard2(){
-        Passport passport = new Passport();
-        passport.setName("Вася");
-        passport.setSurname("Молодец");
-        passport.setNumber("7891");
-        passport.setSeries("1512345");
-        passport.setBirthday(new Date(1973 - 1900, 8, 7));
-        passport.setDateSigning(new Date(1995 - 1900, 5, 5));
-        passport.setAuthorityIssuer("Moskva");
-        Client client = new Client();
-        client.setEmail("Vasia@mail.ru");
-        client.setPhone("12345678987");
-        client.setPassport(passport);
-        LibraryCard libraryCard = new LibraryCard();
-        libraryCard.setClient(client);
-        return modelMapper.map(libraryCard, LibraryCardDto.class);
-    }
-
-    public LibraryCardDto createLibraryCard3(){
-        Passport passport = new Passport();
-        passport.setName("Гарик");
-        passport.setSurname("Бульдог");
-        passport.setNumber("1357");
-        passport.setSeries("1357428");
-        passport.setBirthday(new Date(1980 - 1900, 6, 15));
-        passport.setDateSigning(new Date(1999 - 1900, 5, 5));
-        passport.setAuthorityIssuer("Moskva");
-        Client client = new Client();
-        client.setEmail("Buldog@mail.ru");
-        client.setPhone("98765432198");
-        client.setPassport(passport);
-        LibraryCard libraryCard = new LibraryCard();
-        libraryCard.setClient(client);
-        return modelMapper.map(libraryCard, LibraryCardDto.class);
     }
 }

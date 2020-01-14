@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 public class applicationLibrary {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(applicationLibrary.class, args);
     }
 

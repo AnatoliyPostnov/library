@@ -2,6 +2,7 @@ package com.postnov.library.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "client")
@@ -24,7 +25,7 @@ public class Client implements Serializable {
     @JoinColumn(name = "passport_id")
     private Passport passport;
 
-    public Client(){
+    public Client() {
         deletedClient = true;
     }
 
@@ -76,5 +77,20 @@ public class Client implements Serializable {
         return "Client - id: " + id + " phone: "
                 + phone + " email: " + email
                 + " passport:" + passport.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(phone, client.phone) &&
+                Objects.equals(email, client.email) &&
+                Objects.equals(passport, client.passport);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phone, email, deletedClient, passport);
     }
 }

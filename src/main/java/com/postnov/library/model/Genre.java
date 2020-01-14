@@ -22,7 +22,8 @@ public class Genre implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> books = new HashSet<>();
 
-    public Genre(){}
+    public Genre() {
+    }
 
     public Genre(String descriptionGenre) {
         this.descriptionGenre = descriptionGenre;

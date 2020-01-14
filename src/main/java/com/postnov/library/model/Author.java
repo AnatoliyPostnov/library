@@ -34,7 +34,7 @@ public class Author implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> books = new HashSet<>();
 
-    public Author(){
+    public Author() {
         this.deletedAuthor = true;
     }
 
@@ -85,9 +85,9 @@ public class Author implements Serializable {
         this.deletedAuthor = deletedAuthor;
     }
 
-    public void addBook(Book savedBook){
-        for(Book book: books){
-            if(book.equals(savedBook)) {
+    public void addBook(Book savedBook) {
+        for (Book book : books) {
+            if (book.equals(savedBook)) {
                 return;
             }
         }
@@ -105,7 +105,7 @@ public class Author implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Author author = (Author) o;
-        return  name.equals(author.name) &&
+        return name.equals(author.name) &&
                 surname.equals(author.surname) &&
                 birthday.getYear() == author.birthday.getYear() &&
                 deletedAuthor.equals(author.getDeletedAuthor());

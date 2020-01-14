@@ -1,6 +1,5 @@
 package com.postnov.library.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,7 +17,7 @@ public class MailSender {
         this.sender = sender;
     }
 
-    public void send(String mailTo, String subject, String message){
+    void send(String mailTo, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setFrom(username);

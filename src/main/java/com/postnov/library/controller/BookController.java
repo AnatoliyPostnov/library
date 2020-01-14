@@ -35,7 +35,7 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/get/received/books")
-    public List<BookDto> getReceivedBook(){
+    public List<BookDto> getReceivedBook() {
         List<Book> books = bookService.getIsReceivedBooks();
         return bookService.convertToListBooksDto(books);
     }
@@ -54,21 +54,21 @@ public class BookController {
     public void addBooks(@RequestBody List<BookDto> bookDto) {
         List<Book> books = bookService.convertToListBooks(bookDto);
 
-        for(Book book: books) {
+        for (Book book : books) {
             bookService.save(book);
         }
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/delete/book")
-    public void deletedBook(@RequestBody BookDto bookDto){
+    public void deletedBook(@RequestBody BookDto bookDto) {
         Book book = modelMapper.map(bookDto, Book.class);
         bookService.delete(book);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/find/books/by/author")
-    public List<BookDto> findBooksByAuthor(@RequestBody AuthorDto authorDto){
+    public List<BookDto> findBooksByAuthor(@RequestBody AuthorDto authorDto) {
         Author author = modelMapper.map(authorDto, Author.class);
         return bookService.convertToListBooksDto(bookService.findBooksByAuthor(author));
     }
@@ -76,13 +76,13 @@ public class BookController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/find/books/by/author/name/and/surname")
     public List<BookDto> findBooksByAuthorNameAndSurname(@RequestParam String name,
-                                                         @RequestParam String surname){
+                                                         @RequestParam String surname) {
         return bookService.convertToListBooksDto(bookService.findBooksByAuthorSNameAndSurname(name, surname));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/find/books/by/books/name")
-    public List<BookDto> findBooksByBookSName(@RequestParam String name){
+    public List<BookDto> findBooksByBookSName(@RequestParam String name) {
         return bookService.convertToListBooksDto(bookService.findBooksByBookSName(name));
     }
 }

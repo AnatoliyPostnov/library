@@ -21,7 +21,7 @@ public interface ReceivedBookRepository extends JpaRepository<ReceivedBook, Long
             "rb.date_of_book_return is null",
             nativeQuery = true)
     Optional<ReceivedBook> findByReceivedBook(@Param("book_id") Long book_id,
-                                  @Param("library_card_id") Long library_card_id
+                                              @Param("library_card_id") Long library_card_id
     );
 
     @Query(value = "SELECT * FROM received_book as rb " +

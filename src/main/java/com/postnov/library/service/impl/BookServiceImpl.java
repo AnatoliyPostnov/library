@@ -9,7 +9,6 @@ import com.postnov.library.repository.BookRepository;
 import com.postnov.library.service.AuthorService;
 import com.postnov.library.service.BookService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +26,7 @@ public class BookServiceImpl implements BookService {
 
     private final ModelMapper modelMapper;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService, ModelMapper modelMapper){
+    public BookServiceImpl(BookRepository bookRepository, AuthorService authorService, ModelMapper modelMapper) {
         this.bookRepository = bookRepository;
         this.authorService = authorService;
         this.modelMapper = modelMapper;
@@ -35,11 +34,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void save(Book book) {
-        if(!existenceOfTheBook(book) && !book.getAuthors().isEmpty()){
+        if (!existenceOfTheBook(book) && !book.getAuthors().isEmpty()) {
             bookRepository.save(book);
-        }else if (book.getAuthors().isEmpty()){
+        } else if (book.getAuthors().isEmpty()) {
             throw new IncorrectSavedBookFormatException();
-        }else{
+        } else {
             throw new BookAlreadyExistException();
         }
     }
@@ -58,8 +57,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findAll() {
         List<Book> books = new ArrayList<>();
-        for(Book book : bookRepository.findAll()){
-            if (book.getDeletedBook()){
+        for (Book book : bookRepository.findAll()) {
+            if (book.getDeletedBook()) {
                 books.add(book);
             }
         }
@@ -69,9 +68,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findById(Long id) {
         Book book = bookRepository.findById(id).orElse(null);
-        if(book == null){
+        if (book == null) {
             throw new RuntimeException("book with id: " + id + "is not exist");
-        }else if(book.getDeletedBook()){
+        } else if (book.getDeletedBook()) {
             return book;
         }
         throw new RuntimeException("book with id: " + id + "is deleted");
@@ -97,14 +96,14 @@ public class BookServiceImpl implements BookService {
                 book.getRating(),
                 book.getDeletedBook()
         ).orElse(null);
-        if (resultBook == null){
+        if (resultBook == null) {
             throw new RuntimeException(book.toString() + " is not exist");
         }
         return resultBook;
     }
 
     @Override
-    public Boolean getIsReceivedBook(Book book){
+    public Boolean getIsReceivedBook(Book book) {
         Book receivedBook = findByBook(book);
         return receivedBook.getReceivedBook();
     }
@@ -113,8 +112,8 @@ public class BookServiceImpl implements BookService {
     public List<Book> getIsReceivedBooks() {
         List<Book> allBooks = this.findAll();
         List<Book> receivedBooks = new ArrayList<>();
-        for (Book book : allBooks){
-            if (!this.getIsReceivedBook(book)){
+        for (Book book : allBooks) {
+            if (!this.getIsReceivedBook(book)) {
                 receivedBooks.add(book);
             }
         }
@@ -122,13 +121,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void receivedBook(Book book){
+    public void receivedBook(Book book) {
         Book receivedBook = findByBook(book);
         receivedBook.setReceivedBook(false);
     }
 
     @Override
-    public void returnBook(Book book){
+    public void returnBook(Book book) {
         Book returnBook = findByBook(book);
         returnBook.setReceivedBook(true);
     }
@@ -136,7 +135,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> convertToListBooksDto(List<Book> books) {
         List<BookDto> booksDto = new ArrayList<>();
-        for (Book book : books){
+        for (Book book : books) {
             booksDto.add(modelMapper.map(book, BookDto.class));
         }
         return booksDto;
@@ -145,7 +144,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> convertToListBooks(List<BookDto> booksDto) {
         List<Book> books = new ArrayList<>();
-        for (BookDto bookDto : booksDto){
+        for (BookDto bookDto : booksDto) {
             books.add(modelMapper.map(bookDto, Book.class));
         }
         return books;
@@ -154,7 +153,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findBooksByAuthors(List<Author> authors) {
         List<Book> books = new ArrayList<>();
-        for (Author authorTmp : authors){
+        for (Author authorTmp : authors) {
             books.addAll(authorTmp.getBooks());
         }
         return books;
@@ -167,7 +166,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findBooksByAuthorSNameAndSurname(String name, String surname) {
-        return findBooksByAuthors(authorService.findAuthorsByAuthorSNameAndSurname(name,surname));
+        return findBooksByAuthors(authorService.findAuthorsByAuthorSNameAndSurname(name, surname));
     }
 
     @Override

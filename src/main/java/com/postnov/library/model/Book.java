@@ -59,7 +59,7 @@ public class Book implements Serializable {
     @OneToOne(mappedBy = "book")
     private ReceivedBook receivedBook;
 
-    public Book(){
+    public Book() {
         this.rating = 0;
         deletedBook = true;
         isReceivedBook = true;
@@ -156,9 +156,9 @@ public class Book implements Serializable {
         this.isReceivedBook = isReceivedBook;
     }
 
-    public void addAuthor(Author savedAuthor){
-        for(Author author: authors){
-            if(author.equals(savedAuthor)){
+    public void addAuthor(Author savedAuthor) {
+        for (Author author : authors) {
+            if (author.equals(savedAuthor)) {
                 return;
             }
         }
@@ -177,7 +177,7 @@ public class Book implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return  name.equals(book.name) &&
+        return name.equals(book.name) &&
                 volume.equals(book.volume) &&
                 dateOfPublishing.getYear() == book.dateOfPublishing.getYear() &&
                 dateOfWriting.getYear() == book.dateOfWriting.getYear() &&

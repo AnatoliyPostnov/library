@@ -20,19 +20,19 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
             "a.deleted_author = :deleted_author",
             nativeQuery = true)
     List<Author> findByAuthor(
-                     @Param("name_author") String name_author,
-                     @Param("surname_author") String surname_author,
-                     @Param("birthday_author") Date birthday_author,
-                     @Param("deleted_author") Boolean deleted_author
+            @Param("name_author") String name_author,
+            @Param("surname_author") String surname_author,
+            @Param("birthday_author") Date birthday_author,
+            @Param("deleted_author") Boolean deleted_author
     );
 
     @Query(value = "SELECT a.id, a.name, a.surname, a.birthday, a.deleted_author " +
             "FROM Author as a " +
             "WHERE a.name = :name_author and " +
             "a.surname = :surname_author", nativeQuery = true)
-            List<Author> findAuthorsByAuthorSNameAndSurname(
-                    @Param("name_author") String name_author,
-                    @Param("surname_author") String surname_author
+    List<Author> findAuthorsByAuthorSNameAndSurname(
+            @Param("name_author") String name_author,
+            @Param("surname_author") String surname_author
     );
 
 }

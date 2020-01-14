@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,11 +25,11 @@ public class LibraryCard implements Serializable {
     @OneToMany(mappedBy = "libraryCard", fetch = FetchType.EAGER)
     private Set<ReceivedBook> receivedBook;
 
-    public LibraryCard(){
+    public LibraryCard() {
         deletedLibraryCard = true;
     }
 
-    public LibraryCard(Client client){
+    public LibraryCard(Client client) {
         this.client = client;
         deletedLibraryCard = true;
     }
@@ -62,4 +63,16 @@ public class LibraryCard implements Serializable {
         return "library card - id: " + id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LibraryCard that = (LibraryCard) o;
+        return Objects.equals(client, that.client);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(client);
+    }
 }

@@ -5,22 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13d12220-3fa6-4d1e-9f0d-446200a28106" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/config/MailConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/dto/ReceivedBookDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/MailSender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/LibraryCardControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/ReceivedBookControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/5.6.4/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/TestSData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/applicationLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/applicationLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/config/MailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/config/MailConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/AuthorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/ClientController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/LibraryCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/LibraryCardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/ReceivedBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/controller/ReceivedBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/dto/BookDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/dto/BookDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/BookAlreadyExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/BookAlreadyExistException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/ClientAlreadyExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/ClientAlreadyExistException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/IncorrectSavedClientFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/IncorrectSavedClientFormatException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/IncorrectSavedLibraryCardFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/IncorrectSavedLibraryCardFormatException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/LibraryCardAlreadyExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/LibraryCardAlreadyExistException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/PassportAlreadyExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/exceptions/PassportAlreadyExistException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Author.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Genre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Genre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/LibraryCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/LibraryCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Passport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Passport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/ReceivedBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/ReceivedBook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Theme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/model/Theme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/AuthorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/BookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/ClientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/PassportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/PassportRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/ReceivedBookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/repository/ReceivedBookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/AuthorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/BookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/ClientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/LibraryCardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/LibraryCardService.java" afterDir="false" />
@@ -29,30 +61,42 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/BookServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/ClientServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/LibraryCardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/LibraryCardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/MailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/MailSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/PassportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/PassportServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/ReceivedBookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/postnov/library/service/impl/ReceivedBookServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/BookAndAuthorControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/BookAndAuthorControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/applicationLibrary.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/applicationLibrary.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/LibraryCardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/LibraryCardControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/ReceivedBookControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/postnov/library/controllerTest/ReceivedBookControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/serviceTest/TestAuthorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/serviceTest/TestBookService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/serviceTest/TestClientService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/serviceTest/TestLibraryCardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/serviceTest/TestPassportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/postnov/library/serviceTest/TestReceivedBookService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/AuthorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/AuthorController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/BookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/ClientController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/LibraryCardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/LibraryCardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/ReceivedBookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/controller/ReceivedBookController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Genre.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Genre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/model/LibraryCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/model/LibraryCard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Passport.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Passport.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/model/ReceivedBook.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/model/ReceivedBook.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/repository/ReceivedBookRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/repository/ReceivedBookRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/BookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/ClientService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/LibraryCardService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/LibraryCardService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/ReceivedBookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/ReceivedBookService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Theme.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/model/Theme.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/AuthorServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/AuthorServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/BookServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/BookServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/ClientServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/ClientServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/LibraryCardServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/LibraryCardServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/PassportServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/PassportServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/MailSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/MailSender.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/ReceivedBookServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/postnov/library/service/impl/ReceivedBookServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/main.mustache" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/controllerTest/BookAndAuthorControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/postnov/library/controllerTest/BookAndAuthorControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/controllerTest/LibraryCardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/postnov/library/controllerTest/LibraryCardControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/controllerTest/ReceivedBookControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/postnov/library/controllerTest/ReceivedBookControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/serviceTest/TestAuthorService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/serviceTest/TestBookService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/serviceTest/TestClientService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/serviceTest/TestLibraryCardService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/serviceTest/TestPassportService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/postnov/library/serviceTest/TestReceivedBookService.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,49 +120,25 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="postgres@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="postgres@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="postgres@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="library: database" type="162271b6:PgImplModel$Database" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="postgres@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="library: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="postgres@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="library: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="postgres@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="library: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="postgres@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="postgres: database" type="162271b6:PgImplModel$Database" />
-      </path>
     </expand>
     <select />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="library" />
@@ -144,7 +164,11 @@
     </option>
   </component>
   <component name="ProjectId" id="1V430HiAwzidx5ac7fruKJHWq15" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -163,7 +187,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -172,12 +196,17 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.postnov.library.service" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\xiaomi\IdeaProjects\library\src\test\java\com\postnov\library" />
     </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.postnov.library.service" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle " />
+    </option>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -191,65 +220,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.BookAndAuthorControllerTest and 1 more">
-    <configuration name="BookAndAuthorControllerTest and 1 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="library" />
-      <option name="TEST_OBJECT" value="pattern" />
-      <patterns>
-        <pattern testClass="com.postnov.library.controllerTest.BookAndAuthorControllerTest" />
-        <pattern testClass="com.postnov.library.controllerTest.LibraryCardControllerTest" />
-      </patterns>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BookAndAuthorControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="library" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.postnov.library.controllerTest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.postnov.library.controllerTest" />
-      <option name="MAIN_CLASS_NAME" value="com.postnov.library.controllerTest.BookAndAuthorControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LibraryCardControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="library" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.postnov.library.controllerTest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.postnov.library.controllerTest" />
-      <option name="MAIN_CLASS_NAME" value="com.postnov.library.controllerTest.LibraryCardControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LibraryCardControllerTest.getLibraryCardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="library" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.postnov.library.controllerTest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.postnov.library.controllerTest" />
-      <option name="MAIN_CLASS_NAME" value="com.postnov.library.controllerTest.LibraryCardControllerTest" />
-      <option name="METHOD_NAME" value="getLibraryCardsTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="applicationLibrary" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Gradle.ReceivedBookControllerTest">
+    <configuration name="applicationLibrary" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.postnov.library.applicationLibrary" />
       <module name="library" />
       <extension name="coverage">
         <pattern>
@@ -257,6 +230,84 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BookAndAuthorControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.postnov.library.controllerTest.BookAndAuthorControllerTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="LibraryCardControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.postnov.library.controllerTest.LibraryCardControllerTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ReceivedBookControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.postnov.library.controllerTest.ReceivedBookControllerTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="BookAndAuthorControllerTest and 2 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="library" />
+      <option name="TEST_OBJECT" value="pattern" />
+      <patterns>
+        <pattern testClass="com.postnov.library.controllerTest.BookAndAuthorControllerTest" />
+        <pattern testClass="com.postnov.library.controllerTest.LibraryCardControllerTest" />
+        <pattern testClass="com.postnov.library.controllerTest.ReceivedBookControllerTest" />
+      </patterns>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="applicationLibrary" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="library.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.postnov.library.applicationLibrary" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -264,11 +315,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BookAndAuthorControllerTest and 1 more" />
-        <item itemvalue="Spring Boot.applicationLibrary" />
-        <item itemvalue="JUnit.LibraryCardControllerTest" />
-        <item itemvalue="JUnit.BookAndAuthorControllerTest" />
-        <item itemvalue="JUnit.LibraryCardControllerTest.getLibraryCardsTest" />
+        <item itemvalue="Gradle.ReceivedBookControllerTest" />
+        <item itemvalue="Gradle.LibraryCardControllerTest" />
+        <item itemvalue="Gradle.BookAndAuthorControllerTest" />
+        <item itemvalue="JUnit.BookAndAuthorControllerTest and 2 more" />
+        <item itemvalue="Application.applicationLibrary" />
       </list>
     </recent_temporary>
   </component>
@@ -279,12 +330,7 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3c64d057" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3c64d057" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@398e48cc" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7adf7a1e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -306,6 +352,9 @@
       <workItem from="1576838110272" duration="242157000" />
       <workItem from="1578551359832" duration="45085000" />
       <workItem from="1578748209022" duration="30405000" />
+      <workItem from="1578898224168" duration="14236000" />
+      <workItem from="1578917014630" duration="29810000" />
+      <workItem from="1579005473395" duration="749000" />
     </task>
     <servers />
   </component>
@@ -324,5 +373,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -41,7 +41,7 @@ public class ReceivedBookController {
             @RequestParam String number,
             @RequestParam String series,
             @RequestBody BookDto bookDto
-    ){
+    ) {
         Book book = bookService.findByBook(modelMapper.map(bookDto, Book.class));
         LibraryCard libraryCard = libraryCardService.findByPassportSNumberAndSeries(number, series);
         receivedBookService.receivedBook(libraryCard, book);
@@ -52,7 +52,7 @@ public class ReceivedBookController {
     public Integer returnBooksByBookName(
             @RequestParam String number,
             @RequestParam String series,
-            @RequestParam String name){
+            @RequestParam String name) {
         LibraryCard libraryCard = libraryCardService.findByPassportSNumberAndSeries(number, series);
         List<Book> books = bookService.findBooksByBookSName(name);
         return receivedBookService.returnBooksFromLibraryCard(libraryCard, books);
@@ -63,7 +63,7 @@ public class ReceivedBookController {
     @GetMapping("/get/received/books/by/passportS/number/and/series")
     public List<ReceivedBookDto> getReceivedBooksByPassportSNumberAndSeries(
             @RequestParam String number,
-            @RequestParam String series){
+            @RequestParam String series) {
         LibraryCard libraryCard = libraryCardService.findByPassportSNumberAndSeries(number, series);
         return receivedBookService.convertToListReceivedBooksDto(
                 receivedBookService.getReceivedBooksByLibraryCard(libraryCard));
@@ -73,7 +73,7 @@ public class ReceivedBookController {
     @GetMapping("/get/history/received/books/by/passportS/number/and/series")
     public List<ReceivedBookDto> getHistoryReceivedBooksByPassportSNumberAndSeries(
             @RequestParam String number,
-            @RequestParam String series){
+            @RequestParam String series) {
         LibraryCard libraryCard = libraryCardService.findByPassportSNumberAndSeries(number, series);
         return receivedBookService.convertToListReceivedBooksDto(
                 receivedBookService.getHistoryReceivedBooksByLibraryCard(libraryCard));
@@ -81,9 +81,9 @@ public class ReceivedBookController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/get/all/received/books")
-    public List<ReceivedBookDto> getAllReceivedBooks(){
+    public List<ReceivedBookDto> getAllReceivedBooks() {
         return receivedBookService.convertToListReceivedBooksDto(
-          receivedBookService.getAllReceivedBook()
+                receivedBookService.getAllReceivedBook()
         );
     }
 

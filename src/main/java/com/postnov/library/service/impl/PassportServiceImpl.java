@@ -22,9 +22,9 @@ public class PassportServiceImpl implements PassportService {
 
     @Override
     public void save(Passport passport) {
-        if (!existenceOfThePassport(passport)){
+        if (!existenceOfThePassport(passport)) {
             passportRepository.save(passport);
-        }else {
+        } else {
             throw new PassportAlreadyExistException();
         }
     }
@@ -41,9 +41,9 @@ public class PassportServiceImpl implements PassportService {
     @Override
     public Passport findById(Long id) {
         Passport passport = passportRepository.findById(id).orElse(null);
-        if (passport == null){
+        if (passport == null) {
             throw new RuntimeException("Passport with id: " + id + " is not exist");
-        }else if(passport.getDeletedPassport()){
+        } else if (passport.getDeletedPassport()) {
             return passport;
         }
         throw new RuntimeException("Passport with id: " + id + " is deleted");
@@ -52,8 +52,8 @@ public class PassportServiceImpl implements PassportService {
     @Override
     public List<Passport> findAll() {
         List<Passport> passports = new ArrayList<>();
-        for (Passport passport : passportRepository.findAll()){
-            if (passport.getDeletedPassport()){
+        for (Passport passport : passportRepository.findAll()) {
+            if (passport.getDeletedPassport()) {
                 passports.add(passport);
             }
         }
@@ -62,7 +62,7 @@ public class PassportServiceImpl implements PassportService {
 
     @Override
     public void delete(Passport passport) {
-        if(existenceOfThePassport(passport)){
+        if (existenceOfThePassport(passport)) {
             Passport deletedPassport = findByPassport(passport);
             deletedPassport.setDeletedPassport(false);
         }
@@ -71,11 +71,11 @@ public class PassportServiceImpl implements PassportService {
     @Override
     public Passport findByPassport(Passport passport) {
         if (passport != null) {
-            Passport resultPassport =  passportRepository.findByPassport(
+            Passport resultPassport = passportRepository.findByPassport(
                     passport.getNumber(),
                     passport.getSeries(),
                     passport.getDeletedPassport()).orElse(null);
-            if(resultPassport == null){
+            if (resultPassport == null) {
                 throw new RuntimeException("Passport is not found in database");
             }
             return resultPassport;

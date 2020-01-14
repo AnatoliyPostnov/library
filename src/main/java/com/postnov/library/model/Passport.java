@@ -3,6 +3,7 @@ package com.postnov.library.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "passport")
@@ -38,7 +39,7 @@ public class Passport implements Serializable {
     @Column
     private Date dateSigning;
 
-    public Passport(){
+    public Passport() {
         deletedPassport = true;
     }
 
@@ -135,5 +136,19 @@ public class Passport implements Serializable {
                 + number + " series: " + series
                 + " authorityIssuer: " + authorityIssuer +
                 " dateSigning: " + dateSigning;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passport passport = (Passport) o;
+        return Objects.equals(number, passport.number) &&
+                Objects.equals(series, passport.series);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, birthday, number, series, authorityIssuer, deletedPassport, dateSigning);
     }
 }

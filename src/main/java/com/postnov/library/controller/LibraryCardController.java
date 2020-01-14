@@ -24,19 +24,19 @@ public class LibraryCardController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/add/libraryCard")
-    public void addLibraryCard(@RequestBody LibraryCardDto libraryCardDto){
+    public void addLibraryCard(@RequestBody LibraryCardDto libraryCardDto) {
         LibraryCard libraryCard = modelMapper.map(libraryCardDto, LibraryCard.class);
         libraryCardService.save(libraryCard);
     }
 
     @GetMapping("/get/libraryCards")
-    public List<LibraryCardDto> getLibraryCards(){
+    public List<LibraryCardDto> getLibraryCards() {
         List<LibraryCard> libraryCards = libraryCardService.findAll();
         return libraryCardService.convertToLibraryCardDto(libraryCards);
     }
 
     @GetMapping("/get/libraryCard")
-    public LibraryCardDto getLibraryCard(@RequestParam String number, @RequestParam String series){
+    public LibraryCardDto getLibraryCard(@RequestParam String number, @RequestParam String series) {
         LibraryCard libraryCard = libraryCardService.findByPassportSNumberAndSeries(number, series);
         return modelMapper.map(libraryCard, LibraryCardDto.class);
     }

@@ -22,7 +22,8 @@ public class Theme implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> books = new HashSet<>();
 
-    public Theme(){}
+    public Theme() {
+    }
 
     public Theme(String descriptionTheme) {
         this.descriptionTheme = descriptionTheme;

@@ -30,7 +30,7 @@ public class MailConfig {
     private String debug;
 
     @Bean
-    public JavaMailSender sender(){
+    public JavaMailSender sender() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
 
         sender.setHost(host);

@@ -2,7 +2,6 @@ package com.postnov.library.service;
 
 import com.postnov.library.dto.AuthorDto;
 import com.postnov.library.model.Author;
-import com.postnov.library.model.Book;
 
 import java.util.List;
 
